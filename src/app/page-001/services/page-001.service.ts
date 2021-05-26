@@ -41,7 +41,7 @@ export class Page001Service {
   private ground;
   private bottle_PBR_MATERIAL: BABYLON.PBRMaterial;
   private bottle;
-  private liquid_PBR_MATERIAL: BABYLON.StandardMaterial;
+  private liquid_PBR_MATERIAL: BABYLON.PBRMaterial;
   private liquid;
   private tap;
   private etiquette_PBR_MATERIAL: BABYLON.PBRMaterial;
@@ -66,8 +66,8 @@ export class Page001Service {
 
     // HDR
 
-    this.hdrTexture = BABYLON.CubeTexture.CreateFromPrefilteredData("../../assets/env/environment_009.env", this.scene);
-    this.hdrTexture.rotationY = Math.PI;
+    this.hdrTexture = BABYLON.CubeTexture.CreateFromPrefilteredData("../../assets/env/environment_010.env", this.scene);
+    this.hdrTexture.rotationY = Math.PI/2;
     this.scene.environmentTexture = this.hdrTexture;
 
     // CAMERA
@@ -110,9 +110,25 @@ export class Page001Service {
 
     // LIQUID
 
+    this.liquid_PBR_MATERIAL = new BABYLON.PBRMaterial("liquid_PBR_MATERIAL", this.scene);
+
+    this.liquid_PBR_MATERIAL.metallic = 0.0;
+    this.liquid_PBR_MATERIAL.roughness = 0;
+    this.liquid_PBR_MATERIAL.indexOfRefraction = 1.52;
+    // this.bottle_PBR_MATERIAL.linkRefractionWithTransparency = true;
+    this.liquid_PBR_MATERIAL.alpha = 0.8;
+    this.liquid_PBR_MATERIAL.useSpecularOverAlpha = true;
+    this.liquid_PBR_MATERIAL.directIntensity = 0.0;
+    this.liquid_PBR_MATERIAL.environmentIntensity = 1;
+    this.liquid_PBR_MATERIAL.cameraExposure = 0.8;
+    this.liquid_PBR_MATERIAL.cameraContrast = 2;
+    this.liquid_PBR_MATERIAL.microSurface = 1;
+    // this.liquid_PBR_MATERIAL.reflectivityColor = new BABYLON.Color3(1.00, 0.58, 0.00);
+    this.liquid_PBR_MATERIAL.albedoColor = new BABYLON.Color3(0.89, 0.22, 0.00);
+
     BABYLON.SceneLoader.ImportMeshAsync("liquid", "../../assets/glb/page-001/", "liquid.glb", this.scene).then((result) => {
       this.liquid = this.scene.getMeshByName("liquid");
-      // this.liquid.material = this.liquid_PBR_MATERIAL;
+      this.liquid.material = this.liquid_PBR_MATERIAL;
     });
 
     // BOTTLE
@@ -142,12 +158,10 @@ export class Page001Service {
 
     this.bottle_PBR_MATERIAL.metallic = 0.0;
     this.bottle_PBR_MATERIAL.roughness = 0;
-    this.bottle_PBR_MATERIAL.subSurface.isRefractionEnabled = true;
     this.bottle_PBR_MATERIAL.indexOfRefraction = 1.52;
+    /* this.bottle_PBR_MATERIAL.subSurface.isRefractionEnabled = true;
     this.bottle_PBR_MATERIAL.subSurface.refractionIntensity = 1.52;
-    this.bottle_PBR_MATERIAL.subSurface.indexOfRefraction = 1.52;
-
-
+    this.bottle_PBR_MATERIAL.subSurface.indexOfRefraction = 1.52; */
     // this.bottle_PBR_MATERIAL.linkRefractionWithTransparency = true;
     this.bottle_PBR_MATERIAL.alpha = 0.2;
     this.bottle_PBR_MATERIAL.directIntensity = 0.0;
