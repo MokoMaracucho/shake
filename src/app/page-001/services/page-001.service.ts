@@ -44,7 +44,9 @@ export class Page001Service {
   private liquid_PBR_MATERIAL: BABYLON.StandardMaterial;
   private liquid;
   private tap;
-  private etiquette;
+  private etiquette_PBR_MATERIAL: BABYLON.PBRMaterial;
+  private etiquette_TEXTURE: BABYLON.Texture;
+  private etiquette: any;
 
   public constructor(
     private ngZone: NgZone,
@@ -52,7 +54,7 @@ export class Page001Service {
     protected readonly interaction: InteractionService
   ) {}
 
-  public createScene(canvas: ElementRef<HTMLCanvasElement>): void {
+  public async createScene(canvas: ElementRef<HTMLCanvasElement>): Promise<void> {
 
     // CANVAS - ENGINE - SCENE
 
@@ -64,7 +66,7 @@ export class Page001Service {
 
     // HDR
 
-    this.hdrTexture = BABYLON.CubeTexture.CreateFromPrefilteredData("../../assets/env/environment_007.env", this.scene);
+    this.hdrTexture = BABYLON.CubeTexture.CreateFromPrefilteredData("../../assets/env/environment_009.env", this.scene);
     this.hdrTexture.rotationY = Math.PI;
     this.scene.environmentTexture = this.hdrTexture;
 
@@ -76,6 +78,12 @@ export class Page001Service {
     this.camera.fov = 0.5;
     this.camera.wheelDeltaPercentage = 0.001;
     this.camera.pinchDeltaPercentage = 0.01;
+    // this.camera.lowerAlphaLimit =
+    this.camera.lowerBetaLimit = 0.5;
+    this.camera.lowerRadiusLimit = 20;
+    // this.camera.upperAlphaLimit =
+    this.camera.upperBetaLimit = 2;
+    this.camera.upperRadiusLimit = 40;
     this.camera.attachControl(canvas, true);
 
     // LIGHTS
@@ -138,11 +146,13 @@ export class Page001Service {
     this.bottle_PBR_MATERIAL.indexOfRefraction = 1.52;
     this.bottle_PBR_MATERIAL.subSurface.refractionIntensity = 1.52;
     this.bottle_PBR_MATERIAL.subSurface.indexOfRefraction = 1.52;
+
+
     // this.bottle_PBR_MATERIAL.linkRefractionWithTransparency = true;
     this.bottle_PBR_MATERIAL.alpha = 0.2;
     this.bottle_PBR_MATERIAL.directIntensity = 0.0;
-    this.bottle_PBR_MATERIAL.environmentIntensity = 0.5;
-    this.bottle_PBR_MATERIAL.cameraExposure = 0.66;
+    this.bottle_PBR_MATERIAL.environmentIntensity = 0.3;
+    this.bottle_PBR_MATERIAL.cameraExposure = 0.8;
     this.bottle_PBR_MATERIAL.cameraContrast = 2;
     this.bottle_PBR_MATERIAL.microSurface = 1;
     this.bottle_PBR_MATERIAL.reflectivityColor = new BABYLON.Color3(1, 1, 1);
@@ -161,13 +171,25 @@ export class Page001Service {
 
     // ETIQUETTE
 
+    this.etiquette_PBR_MATERIAL = new BABYLON.PBRMaterial("etiquette_PBR_MATERIAL", this.scene);
+    this.etiquette_PBR_MATERIAL.metallic = 0.2;
+    this.etiquette_PBR_MATERIAL.roughness = 0.4;
+    this.etiquette_PBR_MATERIAL.environmentIntensity = 1;
+    this.etiquette_TEXTURE = new BABYLON.Texture("../../assets/img/textures/etiquette.png", this.scene, false, false);
+    this.etiquette_PBR_MATERIAL.albedoTexture = this.etiquette_TEXTURE;
+
     BABYLON.SceneLoader.ImportMeshAsync("etiquette", "../../assets/glb/page-001/", "etiquette.glb", this.scene).then((result) => {
       this.etiquette = this.scene.getMeshByName("etiquette");
+      this.etiquette.material = this.etiquette_PBR_MATERIAL;
     });
+
+    /* this.scene.registerBeforeRender(function () {
+      this.etiquette.rotation.y += 0.01;
+    }); */
 
     // AXIS
 
-    this.axis_X = BABYLON.MeshBuilder.CreateBox("axis_X", {height: 0.2, width: 0.2, depth: 0.2});
+    /* this.axis_X = BABYLON.MeshBuilder.CreateBox("axis_X", {height: 0.2, width: 0.2, depth: 0.2});
     this.axis_X.position = new BABYLON.Vector3(5, 0, 0);
     this.axis_X_MATERIAL = new BABYLON.StandardMaterial("axis_X_MATERIAL", this.scene);
     this.axis_X_MATERIAL.diffuseColor = new BABYLON.Color3(1, 0, 0);
@@ -186,7 +208,7 @@ export class Page001Service {
     this.axis_Z_MATERIAL = new BABYLON.StandardMaterial("axis_Z_MATERIAL", this.scene);
     this.axis_Z_MATERIAL.diffuseColor = new BABYLON.Color3(0, 0, 1);
     this.axis_Z_MATERIAL.specularColor = new BABYLON.Color3(0, 0, 1);
-    this.axis_Z.material = this.axis_Z_MATERIAL;
+    this.axis_Z.material = this.axis_Z_MATERIAL; */
   }
 
   // ANIMATE
