@@ -120,8 +120,9 @@ export class Page001Service {
     this.liquid_PBR_MATERIAL.useSpecularOverAlpha = true;
     this.liquid_PBR_MATERIAL.directIntensity = 0.0;
     this.liquid_PBR_MATERIAL.environmentIntensity = 1;
-    this.liquid_PBR_MATERIAL.cameraExposure = 0.8;
-    this.liquid_PBR_MATERIAL.cameraContrast = 2;
+    this.liquid_PBR_MATERIAL.useAmbientOcclusionFromMetallicTextureRed = true;
+    this.liquid_PBR_MATERIAL.cameraExposure = 0.2;
+    this.liquid_PBR_MATERIAL.cameraContrast = 10;
     this.liquid_PBR_MATERIAL.microSurface = 1;
     // this.liquid_PBR_MATERIAL.reflectivityColor = new BABYLON.Color3(1.00, 0.58, 0.00);
     this.liquid_PBR_MATERIAL.albedoColor = new BABYLON.Color3(0.89, 0.22, 0.00);
@@ -165,7 +166,7 @@ export class Page001Service {
     // this.bottle_PBR_MATERIAL.linkRefractionWithTransparency = true;
     this.bottle_PBR_MATERIAL.alpha = 0.2;
     this.bottle_PBR_MATERIAL.directIntensity = 0.0;
-    this.bottle_PBR_MATERIAL.environmentIntensity = 0.3;
+    this.bottle_PBR_MATERIAL.environmentIntensity = 0.6;
     this.bottle_PBR_MATERIAL.cameraExposure = 0.8;
     this.bottle_PBR_MATERIAL.cameraContrast = 2;
     this.bottle_PBR_MATERIAL.microSurface = 1;
