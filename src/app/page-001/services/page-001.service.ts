@@ -63,7 +63,7 @@ export class Page001Service {
     this.engine = new BABYLON.Engine(this.canvas, true);
 
     this.scene = new BABYLON.Scene(this.engine);
-    this.scene.clearColor = BABYLON.Color4.FromHexString('#60d0e3FF');
+    this.scene.clearColor = BABYLON.Color4.FromHexString('#bfabdcFF');
 
     // HDR
 
