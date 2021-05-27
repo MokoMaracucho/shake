@@ -127,6 +127,7 @@ export class Page001Service {
     this.liquid_PBR_MATERIAL.cameraExposure = 0.8;
     this.liquid_PBR_MATERIAL.cameraContrast = 10;
     this.liquid_PBR_MATERIAL.microSurface = 1;
+    this.liquid_PBR_MATERIAL.enableSpecularAntiAliasing = true;
     this.liquid_PBR_MATERIAL.reflectivityColor = new BABYLON.Color3(1.00, 1.00, 1.00);
     this.liquid_PBR_MATERIAL.albedoColor = new BABYLON.Color3(0.89, 0.22, 0.00);
 
@@ -198,8 +199,8 @@ export class Page001Service {
     // ETIQUETTE
 
     this.etiquette_PBR_MATERIAL = new BABYLON.PBRMaterial("etiquette_PBR_MATERIAL", this.scene);
-    this.etiquette_PBR_MATERIAL.metallic = 0.2;
-    this.etiquette_PBR_MATERIAL.roughness = 0.5;
+    this.etiquette_PBR_MATERIAL.metallic = 0.6;
+    this.etiquette_PBR_MATERIAL.roughness = 0.6;
     this.etiquette_PBR_MATERIAL.environmentIntensity = 1;
     this.etiquette_TEXTURE = new BABYLON.Texture("../../assets/img/textures/etiquette.png", this.scene, false, false);
     this.etiquette_PBR_MATERIAL.albedoTexture = this.etiquette_TEXTURE;
