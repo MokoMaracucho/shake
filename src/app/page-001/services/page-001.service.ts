@@ -43,6 +43,7 @@ export class Page001Service {
   private bottle;
   private liquid_PBR_MATERIAL: BABYLON.PBRMaterial;
   private liquid;
+  private tap_PBR_MATERIAL: BABYLON.PBRMaterial;
   private tap;
   private etiquette_PBR_MATERIAL: BABYLON.PBRMaterial;
   private etiquette_TEXTURE: BABYLON.Texture;
@@ -66,7 +67,7 @@ export class Page001Service {
 
     // HDR
 
-    this.hdrTexture = BABYLON.CubeTexture.CreateFromPrefilteredData("../../assets/env/environment_015.env", this.scene);
+    this.hdrTexture = BABYLON.CubeTexture.CreateFromPrefilteredData("../../assets/env/environment_016.env", this.scene);
     this.hdrTexture.rotationY = Math.PI/2;
     this.scene.environmentTexture = this.hdrTexture;
 
@@ -93,7 +94,7 @@ export class Page001Service {
     /* this.hemisphericLight = new BABYLON.HemisphericLight('hemisphericLight', new BABYLON.Vector3(0, 1, 0), this.scene);
     this.hemisphericLight.intensity = 1; */
 
-    this.spotLight_left = new BABYLON.SpotLight("spotLight_left", new BABYLON.Vector3(0, 30, -10), new BABYLON.Vector3(0, -1, 0), Math.PI / 3, 2, this.scene);
+    /* this.spotLight_left = new BABYLON.SpotLight("spotLight_left", new BABYLON.Vector3(0, 30, -10), new BABYLON.Vector3(0, -1, 0), Math.PI / 3, 2, this.scene);
     this.spotLight_left.position = new BABYLON.Vector3(20, 10, 10);
     this.spotLight_left.setDirectionToTarget(new BABYLON.Vector3(0, 5, 0));
     this.spotLight_left.intensity = 100;
@@ -101,7 +102,7 @@ export class Page001Service {
     this.spotLight_right = new BABYLON.SpotLight("spotLight_right", new BABYLON.Vector3(0, 30, -10), new BABYLON.Vector3(0, -1, 0), Math.PI / 3, 2, this.scene);
     this.spotLight_right.position = new BABYLON.Vector3(-20, 10, 10);
     this.spotLight_right.setDirectionToTarget(new BABYLON.Vector3(0, 5, 0));
-    this.spotLight_right.intensity = 100;
+    this.spotLight_right.intensity = 100; */
 
     /* this.spotLight_top = new BABYLON.SpotLight("spotLight_top", new BABYLON.Vector3(0, 30, -10), new BABYLON.Vector3(0, -1, 0), Math.PI / 3, 2, this.scene);
     this.spotLight_top.position = new BABYLON.Vector3(0, 20, 0);
@@ -114,18 +115,18 @@ export class Page001Service {
 
     this.liquid_PBR_MATERIAL.metallic = 0.2;
     this.liquid_PBR_MATERIAL.roughness = 0.1;
-    this.liquid_PBR_MATERIAL.emissiveIntensity = 0.6;
-    this.liquid_PBR_MATERIAL.emissiveColor = new BABYLON.Color3(1.00, 0.22, 0.00);
+    this.liquid_PBR_MATERIAL.emissiveIntensity = 0.9;
+    this.liquid_PBR_MATERIAL.emissiveColor = new BABYLON.Color3(1.00, 0.12, 0.00);
     this.liquid_PBR_MATERIAL.indexOfRefraction = 1.52;
     // this.bottle_PBR_MATERIAL.linkRefractionWithTransparency = true;
-    this.liquid_PBR_MATERIAL.alpha = 0.8;
+    this.liquid_PBR_MATERIAL.alpha = 0.75;
     this.liquid_PBR_MATERIAL.useSpecularOverAlpha = true;
-    this.liquid_PBR_MATERIAL.directIntensity = 0.0;
-    this.liquid_PBR_MATERIAL.environmentIntensity = 1;
-    this.liquid_PBR_MATERIAL.useAmbientOcclusionFromMetallicTextureRed = true;
-    this.liquid_PBR_MATERIAL.cameraExposure = 0.4;
+    this.liquid_PBR_MATERIAL.directIntensity = 0.9;
+    this.liquid_PBR_MATERIAL.environmentIntensity = 1.1;
+    this.liquid_PBR_MATERIAL.useAmbientOcclusionFromMetallicTextureRed = false;
+    this.liquid_PBR_MATERIAL.cameraExposure = 0.8;
     this.liquid_PBR_MATERIAL.cameraContrast = 10;
-    this.liquid_PBR_MATERIAL.microSurface = 0.1;
+    this.liquid_PBR_MATERIAL.microSurface = 1;
     this.liquid_PBR_MATERIAL.reflectivityColor = new BABYLON.Color3(1.00, 1.00, 1.00);
     this.liquid_PBR_MATERIAL.albedoColor = new BABYLON.Color3(0.89, 0.22, 0.00);
 
@@ -162,9 +163,9 @@ export class Page001Service {
     this.bottle_PBR_MATERIAL.metallic = 0.4;
     this.bottle_PBR_MATERIAL.roughness = 0;
     this.bottle_PBR_MATERIAL.indexOfRefraction = 1.52;
-    /* this.bottle_PBR_MATERIAL.subSurface.isRefractionEnabled = true;
+    this.bottle_PBR_MATERIAL.subSurface.isRefractionEnabled = true;
     this.bottle_PBR_MATERIAL.subSurface.refractionIntensity = 1.52;
-    this.bottle_PBR_MATERIAL.subSurface.indexOfRefraction = 1.52; */
+    this.bottle_PBR_MATERIAL.subSurface.indexOfRefraction = 1.52;
     // this.bottle_PBR_MATERIAL.linkRefractionWithTransparency = true;
     this.bottle_PBR_MATERIAL.alpha = 0.2;
     this.bottle_PBR_MATERIAL.directIntensity = 0.0;
@@ -182,15 +183,23 @@ export class Page001Service {
 
     // TAP
 
+    this.tap_PBR_MATERIAL = new BABYLON.PBRMaterial("etiquette_PBR_MATERIAL", this.scene);
+    this.tap_PBR_MATERIAL.metallic = 0.2;
+    this.tap_PBR_MATERIAL.roughness = 0.2;
+    this.tap_PBR_MATERIAL.environmentIntensity = 1;
+    this.tap_PBR_MATERIAL.reflectivityColor = new BABYLON.Color3(1.00, 1.00, 1.00);
+    this.tap_PBR_MATERIAL.albedoColor = new BABYLON.Color3(0, 0, 0);
+
     BABYLON.SceneLoader.ImportMeshAsync("tap", "../../assets/glb/page-001/", "tap.glb", this.scene).then((result) => {
       this.tap = this.scene.getMeshByName("tap");
+      this.tap.material = this.tap_PBR_MATERIAL;
     });
 
     // ETIQUETTE
 
     this.etiquette_PBR_MATERIAL = new BABYLON.PBRMaterial("etiquette_PBR_MATERIAL", this.scene);
     this.etiquette_PBR_MATERIAL.metallic = 0.2;
-    this.etiquette_PBR_MATERIAL.roughness = 0.8;
+    this.etiquette_PBR_MATERIAL.roughness = 0.5;
     this.etiquette_PBR_MATERIAL.environmentIntensity = 1;
     this.etiquette_TEXTURE = new BABYLON.Texture("../../assets/img/textures/etiquette.png", this.scene, false, false);
     this.etiquette_PBR_MATERIAL.albedoTexture = this.etiquette_TEXTURE;
