@@ -66,7 +66,7 @@ export class Page001Service {
 
     // HDR
 
-    this.hdrTexture = BABYLON.CubeTexture.CreateFromPrefilteredData("../../assets/env/environment_010.env", this.scene);
+    this.hdrTexture = BABYLON.CubeTexture.CreateFromPrefilteredData("../../assets/env/environment_015.env", this.scene);
     this.hdrTexture.rotationY = Math.PI/2;
     this.scene.environmentTexture = this.hdrTexture;
 
@@ -83,7 +83,7 @@ export class Page001Service {
     this.camera.lowerRadiusLimit = 20;
     // this.camera.upperAlphaLimit =
     this.camera.upperBetaLimit = 2;
-    this.camera.upperRadiusLimit = 40;
+    this.camera.upperRadiusLimit = 20;
     this.camera.attachControl(canvas, true);
 
     // LIGHTS
@@ -112,8 +112,10 @@ export class Page001Service {
 
     this.liquid_PBR_MATERIAL = new BABYLON.PBRMaterial("liquid_PBR_MATERIAL", this.scene);
 
-    this.liquid_PBR_MATERIAL.metallic = 0.0;
-    this.liquid_PBR_MATERIAL.roughness = 0;
+    this.liquid_PBR_MATERIAL.metallic = 0.2;
+    this.liquid_PBR_MATERIAL.roughness = 0.1;
+    this.liquid_PBR_MATERIAL.emissiveIntensity = 0.6;
+    this.liquid_PBR_MATERIAL.emissiveColor = new BABYLON.Color3(1.00, 0.22, 0.00);
     this.liquid_PBR_MATERIAL.indexOfRefraction = 1.52;
     // this.bottle_PBR_MATERIAL.linkRefractionWithTransparency = true;
     this.liquid_PBR_MATERIAL.alpha = 0.8;
@@ -121,10 +123,10 @@ export class Page001Service {
     this.liquid_PBR_MATERIAL.directIntensity = 0.0;
     this.liquid_PBR_MATERIAL.environmentIntensity = 1;
     this.liquid_PBR_MATERIAL.useAmbientOcclusionFromMetallicTextureRed = true;
-    this.liquid_PBR_MATERIAL.cameraExposure = 0.2;
+    this.liquid_PBR_MATERIAL.cameraExposure = 0.4;
     this.liquid_PBR_MATERIAL.cameraContrast = 10;
-    this.liquid_PBR_MATERIAL.microSurface = 1;
-    // this.liquid_PBR_MATERIAL.reflectivityColor = new BABYLON.Color3(1.00, 0.58, 0.00);
+    this.liquid_PBR_MATERIAL.microSurface = 0.1;
+    this.liquid_PBR_MATERIAL.reflectivityColor = new BABYLON.Color3(1.00, 1.00, 1.00);
     this.liquid_PBR_MATERIAL.albedoColor = new BABYLON.Color3(0.89, 0.22, 0.00);
 
     BABYLON.SceneLoader.ImportMeshAsync("liquid", "../../assets/glb/page-001/", "liquid.glb", this.scene).then((result) => {
@@ -157,7 +159,7 @@ export class Page001Service {
     this.bottle_PBR_MATERIAL.roughness = 0;
     this.bottle_PBR_MATERIAL.alpha = 0.2; */
 
-    this.bottle_PBR_MATERIAL.metallic = 0.0;
+    this.bottle_PBR_MATERIAL.metallic = 0.4;
     this.bottle_PBR_MATERIAL.roughness = 0;
     this.bottle_PBR_MATERIAL.indexOfRefraction = 1.52;
     /* this.bottle_PBR_MATERIAL.subSurface.isRefractionEnabled = true;
@@ -188,7 +190,7 @@ export class Page001Service {
 
     this.etiquette_PBR_MATERIAL = new BABYLON.PBRMaterial("etiquette_PBR_MATERIAL", this.scene);
     this.etiquette_PBR_MATERIAL.metallic = 0.2;
-    this.etiquette_PBR_MATERIAL.roughness = 0.4;
+    this.etiquette_PBR_MATERIAL.roughness = 0.8;
     this.etiquette_PBR_MATERIAL.environmentIntensity = 1;
     this.etiquette_TEXTURE = new BABYLON.Texture("../../assets/img/textures/etiquette.png", this.scene, false, false);
     this.etiquette_PBR_MATERIAL.albedoTexture = this.etiquette_TEXTURE;
